@@ -1,18 +1,18 @@
 # Neural-Network-Classificationex002
-# Developing a Neural Network Classification Model
+# EX:2 Developing a Neural Network Classification Model
 
-# Name: CJ ROHIT
-# Register Number: 212224243005
-# Department: Artificial Intelligence and Machine Learning (AIML)
-# College: Saveetha Engineering College
+## Name: CJ ROHIT
+## Register Number: 212224243005
+## Department: Artificial Intelligence and Machine Learning (AIML)
+## College: Saveetha Engineering College
 
-# AIM
-# To develop a neural network classification model to predict
-# customer segments A, B, C, and D.
+## AIM
+## To develop a neural network classification model to predict
+## customer segments A, B, C, and D.
 
-# PROGRAM
+## PROGRAM
 
-# Method 1: Import Required Libraries
+## Method 1: Import Required Libraries
 
 import torch
 import torch.nn as nn
@@ -31,24 +31,24 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-# Method 2: Load the Dataset
+## Method 2: Load the Dataset
 
 df = pd.read_csv(r"E:\deep\deeex\dataset\customers.csv")
 df.head()
 
 
-# Method 3: Remove the ID Column
+## Method 3: Remove the ID Column
 
 df = df.drop(columns=["ID"])
 df.head()
 
 
-# Method 4: Display Column Names
+## Method 4: Display Column Names
 
 print(df.columns)
 
 
-# Method 5: Handle Missing Values
+## Method 5: Handle Missing Values
 
 df.fillna({
     "Work_Experience": 0,
@@ -68,7 +68,7 @@ for col in cat_columns:
     df[col] = df[col].fillna(df[col].mode()[0])
 
 
-# Method 6: Encode Categorical Variables
+## Method 6: Encode Categorical Variables
 
 encoders = {}
 
@@ -82,13 +82,13 @@ df["Segmentation"] = lbe.fit_transform(df["Segmentation"].astype(str))
 df.head()
 
 
-# Method 7: Separate Features and Target
+## Method 7: Separate Features and Target
 
 x = df.drop(columns=["Segmentation"])
 y = df["Segmentation"].values
 
 
-# Method 8: Split the Dataset
+## Method 8: Split the Dataset
 
 xt, xst, yt, yst = train_test_split(
     x,
@@ -99,7 +99,7 @@ xt, xst, yt, yst = train_test_split(
 )
 
 
-# Method 9: Normalize the Features
+## Method 9: Normalize the Features
 
 scaler = StandardScaler()
 
@@ -107,7 +107,7 @@ xt = scaler.fit_transform(xt)
 xst = scaler.transform(xst)
 
 
-# Method 10: Convert Data into PyTorch Tensors
+## Method 10: Convert Data into PyTorch Tensors
 
 xt = torch.FloatTensor(xt)
 xst = torch.FloatTensor(xst)
@@ -116,7 +116,7 @@ yt = torch.LongTensor(yt)
 yst = torch.LongTensor(yst)
 
 
-# Method 11: Create DataLoaders
+## Method 11: Create DataLoaders
 
 tr = TensorDataset(xt, yt)
 tst = TensorDataset(xst, yst)
@@ -125,7 +125,7 @@ trl = DataLoader(tr, batch_size=16, shuffle=True)
 tstl = DataLoader(tst, batch_size=16, shuffle=False)
 
 
-# Method 12: Build the Neural Network Model
+## Method 12: Build the Neural Network Model
 
 class classifier1(nn.Module):
 
@@ -146,7 +146,7 @@ class classifier1(nn.Module):
         return x
 
 
-# Method 13: Initialize the Model
+## Method 13: Initialize the Model
 
 model = classifier1(input_size=xt.shape[1])
 
@@ -154,7 +154,7 @@ criterion = nn.CrossEntropyLoss()
 op = optim.Adam(model.parameters(), lr=0.001)
 
 
-# Method 14: Train the Model
+## Method 14: Train the Model
 
 epochs = 100
 
@@ -180,7 +180,7 @@ for i in range(epochs):
         )
 
 
-# Method 15: Predict on Test Data
+## Method 15: Predict on Test Data
 
 model.eval()
 
@@ -195,7 +195,7 @@ print("Actual Labels:", act)
 print("Predicted Labels:", pre)
 
 
-# Method 16: Evaluate the Model
+## Method 16: Evaluate the Model
 
 accuracy = accuracy_score(act, pre)
 
@@ -218,7 +218,7 @@ print("Confusion Matrix:\n", conf_matrix)
 print("Classification Report:\n", cl_report)
 
 
-# Method 17: Plot the Confusion Matrix
+## Method 17: Plot the Confusion Matrix
 
 xl = lbe.classes_
 
@@ -237,8 +237,8 @@ plt.title("Confusion Matrix")
 plt.show()
 
 
-# Method 18: Result
-# output
+## Method 18: Result
+## output
 <img width="769" height="890" alt="image" src="https://github.com/user-attachments/assets/2b8e7b62-00da-4c18-a3ca-8ec20706af82" />
 <img width="645" height="911" alt="image" src="https://github.com/user-attachments/assets/11cf0fc0-35ca-42f1-8bee-1d5ff38230ba" />
 <img width="538" height="914" alt="image" src="https://github.com/user-attachments/assets/d982946c-e103-449c-8834-8c8cf0194d78" />
